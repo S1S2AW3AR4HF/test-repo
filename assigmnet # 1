@@ -1,0 +1,184 @@
+TASK # 1:
+EXERCISE 1:
+val a = Array(1, 2, 3, 4, 5)
+println(a.mkString(", "))
+
+val b = Array.fill(5)(0)
+println(b.mkString(", "))
+
+EXERCISE 2:
+
+object  mutable{
+ def mapnset(): Unit = {
+   var m1 = Map("firstname" -> "MUHAMMAD")
+   m1 += ("lastname" -> "UZAIR")
+   println(m1)
+
+   val m2 = mutable.Map("firstname" -> "MUHAMMAD")
+   m2 += ("lastname" -> "UZAIR")
+   println(m2)
+
+   var s1 = Set("MUHAMMAD")
+   s1 += ("UZAIR")
+   println(s1)
+
+   val s3 = mutable.Set("MUHAMMAD")
+   s3.add("UZAIR")
+   println(s3)
+ }
+  def main(args: Array[String]): Unit = {
+    mapnset()
+  }
+}
+
+EXERCISE 3:
+object op{
+  def opt(x: Option[String]): Unit ={
+    if (x != None){
+      println(x, "hello")
+    }else{
+      println("world")
+    }
+  }
+  def main(args: Array[String]): Unit ={
+    opt(Some("hy"))
+    opt(None) 
+}
+EXERCISE 4:
+object high{
+ def highorder(): Unit = {
+   val arr = Array("Hello")
+
+   val arr2 = arr.map(_ * 2)
+   println(arr2.mkString(","))
+
+   val arr1 = arr.reduce(_ + _)
+   println(arr1.mkString(","))
+
+   val ar = Array(1, 2, 3, 4)
+   val arr3 = ar.foldLeft(0)(_ + _)
+   println(arr3)
+   val arr4 = ar.foldRight(0)(_ + _)
+   print(arr4)
+
+   val arr5 = ar.filter(_ % 2 != 0)
+   println(arr5.mkString(","))
+ }
+  def main(args: Array[String]): Unit = {
+    highorder()
+  }
+}
+TASK # 2:
+EXERCISE # 1:
+
+object primenum{
+  
+  
+  def isprime(n: Int): Boolean = {
+    if (n <= 1) false
+    else if (n == 2) true
+    else !(2 to math.sqrt(n).toInt).exists(n % _ == 0)
+  }
+
+  def main(args: Array[String]): Unit = {
+    val randomNumbers = List.fill(15)(Random.between(50, 501))
+    
+   
+    val primeIterator = randomNumbers
+      .filter(isPrime)
+      .toIterator       
+    
+    println(s"Random numbers: ${randomNumbers.mkString(", ")}")
+    println(s"Prime numbers iterator: ${primeIterator.mkString(", ")}")
+  }
+}
+
+EXERCISE # 2:
+object char{
+  def char(start: Int): List[Char] = {
+
+    @annotation.tailrec
+    def loop(current: Int, acc: List[Char]): List[Char] = {
+      if (current > 122) acc 
+      else loop(current + 1, acc :+ current.toChar) 
+    }
+
+    loop(start, List.empty) 
+  }
+
+  def main(args: Array[String]): Unit = {
+    val startAscii = 98 
+    val charList = char(startAscii)
+
+    println(charList.mkString(", ")) 
+  }
+}
+
+EXERCISE # 3:
+object ArraySum{
+
+  def Sum(a1: Array[Double], a2: Array[Double]): Array[Double] = {
+   require(a1.length == a2.length, "Arrays must have the same length")
+
+  
+    a1.zip(a2).map { case (x, y) => x + y }
+  }
+
+  def main(args: Array[String]): Unit = {
+
+    val a1 = Array(1.0, 2.0, 3.0)
+    val a2 = Array(4.0, 5.0, 6.0)
+    
+  
+    val result = elementWiseSum(a1, a2)
+    
+    println("Element-wise sum: ${result.mkString(", ")}")
+  }
+}
+
+EXERCISE # 4:
+object func{
+  @tailrec
+  def numeven(arr: Array[Int], count: Int = 0):Int = {
+    val n = arr.length
+    if (n == 0) {
+      count
+    } else if (arr(0) % 2 == 0) {
+      numeven(arr.slice(1, n), count + 1)
+    } else numeven(arr.slice(1, n), count)
+  }
+  def numeven2(arr: Array[Int]):Int ={
+    val count = arr.count(x => x % 2 == 0)
+    count
+  }
+  def main(args: Array[String]): Unit={
+    val a = Array.fill(100)(Random.nextInt(100))
+    println(numeven(a))
+    println(numeven2(a))
+  }
+}
+
+EXERCISE # 5:
+object buildmap {
+  
+  def buildmap[A, B](data: Seq[A], f: A => B): Map[A, B] = {
+    data.map(x => x -> f(x)).toMap
+  }
+
+  def main(args: Array[String]): Unit = {
+    val lst = Array(1, 2, 3, 4, 5)
+    def func(x: Int): Boolean = x % 2 == 0
+    val result = buildmap(lst, func)
+    println(result)
+  }
+}
+
+
+
+
+
+
+
+
+
+

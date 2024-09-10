@@ -1,0 +1,301 @@
+EXERCISE # 1
+object  polynomial{
+  def poly(x: Int, a: Int = 3, b: Int = 5, c: Int = 7): Double = {
+    (a * math.pow(x, 2)) + (b * x) + c
+  }
+  def main(args: Array[String]): Unit = {
+    val x = Range(-3, 3).toList
+    println(x.map(poly(_)))
+  }
+}
+EXERCISE # 2
+object polynomial{
+  def poly(x: Int, a: Int = 3, b: Int = 5, c: Int = 7): Double = {
+    (a * math.pow(x, 2)) + (b * x) + c
+  }
+
+  def main(args: Array[String]): Unit = {
+    val x = Range(-3, 3).toList
+    val polyList = x.map(poly(_))
+    val zipList = x zip polyList
+    val indziplst = zipList.zipWithIndex
+    val mean = (polyList.sum) / polyList.length
+    println(indziplst)
+    println(mean)
+  }
+  }
+  EXERCISE # 3
+  object eculi{
+  def euclidean_sum(vec: Vector[Int]): Int = {
+    vec.sum
+  }
+  def euclidean_square(vec: Vector[Int]): Vector[Int]= {
+    vec.map(x => x*x)
+  }
+  def euclidean(vec: Vector[Int]):Int ={
+    euclidean_sum(euclidean_square(vec))
+  }
+  def main(args: Array[String]): Unit={
+    val myvec = Vector(3, 6, 4)
+    println(euclidean(myvec))
+  }
+}
+EXERCISE # 4
+object wildcard{
+  def lis11_2(uList: List[Int]):Unit ={
+    val uList_Twice = uList.map(_ * 2)
+    println(s"List elements doubled - $uList_Twice")
+
+    def f(x: Int) = if (x > 2) x * x else None
+    val uList_Squared = uList.map(f(_))
+    println(s"List element squared selectively - $uList_Squared")
+  }
+  def lis11_3(uList: List[Int]): Unit= {
+    def g(v: Int) = List(v - 1, v, v + 1)
+    val uList_Extended = uList.map(g(_))
+    println(s"Extended list using map - $uList_Extended")
+
+    val uList_Extended_flatmap = uList.flatMap(g(_))
+    println(s"Extended list using flatmap - $uList_Extended_flatmap")
+  }
+  def lis11_4(uList: List[Int]): Unit = {
+    def f(x: Int) = if (x > 2) Some(x) else None
+    val uList_Selective = uList.map(f(_))
+    println(s"Selective elements of List using .map - $uList_Selective")
+
+    val uList_Selective_flatmap = uList.flatMap(f(_))
+    println(s"Selective elements of Lists with .flatMap - $uList_Selective_flatmap")
+  }
+  def lis11_5(uMap: Map[Char, Int]): Unit = {
+    val uMap_mapValues = uMap.mapValues(_ * 2).toMap
+    println(s"Map values doubled using .mapValues - $uMap_mapValues")
+
+    def h(k: Int, v: Int) = Some(k -> v * 2)
+
+    val uMap_map = uMap.map{
+      case(k, v) => h(k, v)
+    }
+    println(s"Map values doubled using .map - $uMap_map")
+
+    val uMap_flatMap = uMap.flatMap{
+      case(k, v) => h(k, v)
+    }
+    println(s"Map values doubled using .flatMap - $uMap_flatMap")
+  }
+  def main(args: Array[String]): Unit={
+    val uList = List(1, 2, 3, 4, 5)
+    val uMap = Map('a' -> 2, 'b' -> 4, 'c' -> 6)
+    lis11_2(uList)
+    lis11_3(uList)
+    lis11_4(uList)
+    lis11_5(uMap)
+  }
+}
+
+EXERCISE # 5
+object fsm{
+    def apply(events: List[Event]): Unit = {
+      def loop(state: State, data: Data, remainingEvents: List[Event]): Unit = remainingEvents match {
+        case Nil =>
+          println("fsm finished")
+        case event :: tail =>
+          val (newState, newData) = counterFSM(state, data, event)
+          loop(newState, newData, tail)
+      }
+
+      def counterFSM(state: State, data: Data, event: Event): (State, Data) = (state, event) match {
+        case (Idle, Start) =>
+          println("Counter started")
+          (Active, Data(0))
+        case (Active, Increment) =>
+          val newCount = data.count + 1
+          println(s"Counter incremented to $newCount")
+          (Active, data.copy(count = newCount))
+        case (Active, Stop) =>
+          println(s"Counter stopped at ${data.count}")
+          (Idle, Data(0))
+        case _ =>
+          (state, data)
+      }
+
+      loop(Idle, Data(0), events)
+    }
+  }
+  
+ EXERCISE # 6
+ 
+ object list {
+  def lis11_2(u1List: Seq[Int]): Unit = {
+    val uList_Twice = u1List.map(_ * 2)
+    println(s"List elements doubled - $uList_Twice")
+
+    def f(x: Int) = if (x > 2) x * x else None
+
+    val uList_Squared = u1List.map(f(_))
+    println(s"List element squared selectively - $uList_Squared")
+  }
+
+  def lis11_3(u2List: Array[Int]): Unit = {
+    def g(v: Int) = List(v - 1, v, v + 1)
+
+    val uList_Extended = u2List.map(g(_))
+    println(s"Extended list using map - $uList_Extended")
+
+    val uList_Extended_flatmap = u2List.flatMap(g(_))
+    println(s"Extended list using flatmap - $uList_Extended_flatmap")
+  }
+
+  def lis11_4(u3List: Vector[Int]): Unit = {
+    def f(x: Int) = if (x > 2) Some(x) else None
+
+    val uList_Selective = u3List.map(f(_))
+    println(s"Selective elements of List using .map - $uList_Selective")
+
+    val uList_Selective_flatmap = u3List.flatMap(f(_))
+    println(s"Selective elements of Lists with .flatMap - $uList_Selective_flatmap")
+  }
+
+  def lis11_5(uMap: Map[Char, Int]): Unit = {
+    val uMap_mapValues = uMap.mapValues(_ * 2).toMap
+    println(s"Map values doubled using .mapValues - $uMap_mapValues")
+
+    def h(k: Int, v: Int) = Some(k -> v * 2)
+    
+   EXERCISE # 7
+   
+   EXERCISE # 8
+ object lst{
+  def lis11_2(u1List: Seq[Int]): Unit = {
+    val uList_Twice = u1List.map(_ * 2)
+    println(s"List elements doubled - $uList_Twice")
+
+    def f(x: Int) = if (x > 2) x * x else None
+
+    val uList_Squared = u1List.map(f(_))
+    println(s"List element squared selectively - $uList_Squared")
+  }
+
+  def lis11_3(u2List: Array[Int]): Unit = {
+    def g(v: Int) = List(v - 1, v, v + 1)
+
+    val uList_Extended = u2List.map(g(_))
+    println(s"Extended list using map - $uList_Extended")
+
+    val uList_Extended_flatmap = u2List.flatMap(g(_))
+    println(s"Extended list using flatmap - $uList_Extended_flatmap")
+  }
+
+  def lis11_4(u3List: Vector[Int]): Unit = {
+    def f(x: Int) = if (x > 2) Some(x) else None
+
+    val uList_Selective = u3List.map(f(_))
+    println(s"Selective elements of List using .map - $uList_Selective")
+
+    val uList_Selective_flatmap = u3List.flatMap(f(_))
+    println(s"Selective elements of Lists with .flatMap - $uList_Selective_flatmap")
+  }
+
+  def lis11_5(uMap: Map[Char, Int]): Unit = {
+    val uMap_mapValues = uMap.mapValues(_ * 2).toMap
+    println(s"Map values doubled using .mapValues - $uMap_mapValues")
+
+    def h(k: Int, v: Int) = Some(k -> v * 2)
+
+    val uMap_map = uMap.map {
+      case (k, v) => h(k, v)
+    }
+    println(s"Map values doubled using .map - $uMap_map")
+
+    val uMap_flatMap = uMap.flatMap {
+      case (k, v) => h(k, v)
+    }
+    println(s"Map values doubled using .flatMap - $uMap_flatMap")
+  }
+
+  def main(args: Array[String]): Unit = {
+    val u1List = Seq(1, 2, 3, 4, 5)
+    val u2List = Array(1, 2, 3, 4, 5)
+    val u3List = Vector(1, 2, 3, 4, 5)
+    val uMap = Map('a' -> 2, 'b' -> 4, 'c' -> 6)
+    lis11_2(u1List)
+    lis11_3(u2List)
+    lis11_4(u3List)
+    lis11_5(uMap)
+  }
+}  
+   EXERCISE # 9
+   object lst{
+  def apply(l1: List[Int], l2: List[Int]): List[Int]={
+    val l = l1.zip(l2).map{ case (x, y) => x + y }
+    l
+  }
+  def main(args: Array[String]): Unit={
+    val l1 = List(1, 2, 3, 4, 5)
+    val l2 = List(9, 10, 11, 12, 13)
+    println(apply(l1, l2))
+  }
+}
+   EXERCISE # 10
+   trait module{
+  def in1: UInt
+  def in2: UInt
+  def out: UInt
+}
+
+class Add extends RawModule with module{
+  val in1 = IO(Input(UInt(8.W)))
+  val in2 = IO(Input(UInt(8.W)))
+  val out = IO(Output(UInt(8.W)))
+  out := in1 + in2
+}
+
+class Sub extends RawModule with module{
+  val in1 = IO(Input(UInt(8.W)))
+  val in2 = IO(Input(UInt(8.W)))
+  val out = IO(Output(UInt(8.W)))
+  out := in1 - in2
+}
+
+class Top[T1 <: BaseModule with module, T2 <: BaseModule with module](genT1: =>T1, genT2: =>T2) extends module{
+  val io = IO(new Bundle {
+    val in1 = IO(Input(UInt(8.W)))
+    val in2 = IO(Input(UInt(8.W)))
+    val out = IO(Output(UInt(8.W)))
+    })
+  val sub_Module1 = Module(genT1)
+  val sub_Module2 = Module(genT2)
+
+  io.out := sub_Module1.out
+  sub_Module1.in1 := io.in1
+  sub_Module1.in2 := io.in2
+
+  io.out := sub_Module2.out
+  sub_Module2.in1 := io.in1
+  sub_Module2.in2 := io.in2
+}
+   EXERCISE # 11
+   object imp{
+  implicit def strToInt(a: String): Int={
+    a.toInt
+  }
+  def main(args: Array[String]): Unit= {
+    import tsk7.strToInt
+    val a: String = "12"
+    val num: Int = a
+    println(num)
+  }
+}
+   EXERCISE # 12
+   object sum{
+  def convsum(x: sum, y: sum):String ={
+    val m: String = x.toString
+    val n: String = y.toString
+    m ++ n
+  }
+  def main(args: Array[String]): Unit={
+    println(convsum('c', 'd'))
+  }
+}
+   
+
+
